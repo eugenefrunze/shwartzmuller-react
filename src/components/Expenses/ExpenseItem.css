@@ -6,6 +6,11 @@
     margin: 1rem 0;
     background-color: #4b4b4b;
   }
+
+.expense-item button {
+  user-select: none;
+  -webkit-user-select: none;
+}
   
   .expense-item__description {
     display: flex;

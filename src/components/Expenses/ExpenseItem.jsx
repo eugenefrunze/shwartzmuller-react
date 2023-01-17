@@ -9,6 +9,7 @@ const ExpenseItem = ({title, amount, date}) => {
     const clickHandler = () => {
         setItemTitle('updated!');
     }
+    // console.log(`ITEM ${title} EVALD BY REACT`);
 
     return (
       <Card className="expense-item">
@@ -17,9 +18,7 @@ const ExpenseItem = ({title, amount, date}) => {
           <h2>{itemTitle}</h2>
           <Price amount={amount} />
         </div>
-        <button onClick={clickHandler}>
-            some info here
-        </button>
+        <button onClick={clickHandler}> some info here </button>
       </Card>
     );
 }
