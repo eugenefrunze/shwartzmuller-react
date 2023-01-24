@@ -5,20 +5,13 @@ import Price from '../UI/Price';
 import "./ExpenseItem.css";
 
 const ExpenseItem = ({title, amount, date}) => {
-    const [itemTitle, setItemTitle] = useState(title);
-    const clickHandler = () => {
-        setItemTitle('updated!');
-    }
-    // console.log(`ITEM ${title} EVALD BY REACT`);
-
     return (
       <Card className="expense-item">
         <ExpenseDate date={date} />
         <div className="expense-item__description">
-          <h2>{itemTitle}</h2>
+          <h2>{title}</h2>
           <Price amount={amount} />
         </div>
-        <button onClick={clickHandler}> some info here </button>
       </Card>
     );
 }

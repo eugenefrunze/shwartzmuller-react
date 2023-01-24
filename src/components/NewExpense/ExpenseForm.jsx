@@ -2,36 +2,58 @@ import React, { useState } from 'react';
 import ExpenseControl from './ExpenseControl';
 import './NewExpenseForm.css';
 
-const NewExpnseForm = () => {
+const NewExpnseForm = ({onSaveExpenseData}) => {
 
   const [userInput, setUserInput] = useState({
     enteredTitle: '',
     enteredAmount: '',
-    enteredDate: '',
   })
 
+  const [newDate, setNewDate] = useState('');
+
+  //right common approach
   const titleChangeHandler = (e) => {
     setUserInput((prevState) => {
       return {...prevState, enteredTitle: e.target.value};
     })
   }
 
+  //wrong approach, depends on potential wrong/outdated data
   const amountChangeHandler = (e) => {
-    setUserInput({
-      ...userInput,
-      enteredAmount: e.target.value
-    })
+    setUserInput(
+      {...userInput, enteredAmount: e.target.value}
+    )
   }
 
   const dateChangeHandler = (e) => {
-    setUserInput({
-      ...userInput,
-      enteredDate: e.target.value
-    })
+    setNewDate(e.target.value)
   }
 
+  //==============SUBMIT HANDLER===============================
+
+  const submitHandler = (event) => {
+    event.preventDefault();
+    const expenseData = {
+      title: userInput.enteredTitle,
+      amount: userInput.enteredAmount,
+      date: new Date(newDate)
+    };
+
+    //exec onSaveExpenseData from NewExpense
+    onSaveExpenseData(expenseData);
+
+    //set states to empty
+    setUserInput({
+      enteredTitle: '',
+      enteredAmount: '',
+    });
+    setNewDate('');
+  }
+
+  //===========================================================
+
     return (
-      <form>
+      <form onSubmit={submitHandler}>
         <div className="new-expense__controls">
           <ExpenseControl>
             <label>title</label>
@@ -53,13 +75,13 @@ const NewExpnseForm = () => {
               type="date"
               min="2019-0101"
               max="2023-12-31"
-              value={userInput.enteredDate}
+              value={newDate}
               onChange={dateChangeHandler}
             />
           </ExpenseControl>
         </div>
         <div className="new-expense__actions">
-          <button>Add expense</button>
+          <button type='submit'>Add expense</button>
         </div>
       </form>
     );
